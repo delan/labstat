@@ -8,6 +8,9 @@ hostname | tr -d '\n'
 # Probe for the availability of ifconfig and/or the permission to execute.
 $prog > /dev/null 2>&1
 if [ $? == 0 ]; then
+	# Output the current date and time in ISO 8601 format.
+	printf ' '
+	date -u +%FT%TZ | tr -d '\n'
 	# Output the first ethernet NIC's MAC address.
 	printf ' '
 	$prog -a | grep '^e' | sed -r 's/.+HWaddr //' | head -n 1 | tr -d '\n'
@@ -19,8 +22,5 @@ if [ $? == 0 ]; then
 	printf ' '
 	$prog -a | grep -A 2 '^e' | grep inet6 |
 		sed -r 's/.+Scope://' | tr -d '\n'
-	# Output the current date and time in ISO 8601 format.
-	printf ' '
-	date -u +%FT%TZ | tr -d '\n'
 fi
 echo

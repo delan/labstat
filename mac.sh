@@ -4,23 +4,23 @@
 # This means that e.g. `ssh lab219-01 ifconfig` might not find the command.
 # Thus, for now at least, we hardcode the path to ifconfig.
 prog=/sbin/ifconfig
-hostname | tr -d '\n'
+hostname | tr -d ' \n'
 # Probe for the availability of ifconfig and/or the permission to execute.
 $prog > /dev/null 2>&1
 if [ $? == 0 ]; then
 	# Output the current date and time in ISO 8601 format.
 	printf ' '
-	date -u +%FT%TZ | tr -d '\n'
+	date -u +%FT%TZ | tr -d ' \n'
 	# Output the first ethernet NIC's MAC address.
 	printf ' '
-	$prog -a | grep '^e' | sed -r 's/.+HWaddr //' | head -n 1 | tr -d '\n'
+	$prog -a | grep '^e' | sed -r 's/.+HWaddr//' | head -n 1 | tr -d ' \n'
 	# Output the first ethernet NIC's IPv4 address.
 	printf ' '
 	$prog -a | grep -A 1 '^e' | grep inet | sed -r 's/.+inet addr://' |
-		sed -r 's/  Bcast.+//' | head -n 1 | tr -d '\n'
+		sed -r 's/Bcast.+//' | head -n 1 | tr -d ' \n'
 	# Output the IPv6 scope.
 	printf ' '
 	$prog -a | grep -A 2 '^e' | grep inet6 |
-		sed -r 's/.+Scope://' | tr -d '\n'
+		sed -r 's/.+Scope://' | tr -d ' \n'
 fi
 echo

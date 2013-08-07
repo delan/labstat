@@ -10,7 +10,7 @@ $prog > /dev/null 2>&1
 if [ $? == 0 ]; then
 	# Output the first ethernet NIC's MAC address.
 	printf ' '
-	$prog -a | grep '^e' | sed -r 's/.+HWaddr//' | head -n 1 | tr -d '\n'
+	$prog -a | grep '^e' | sed -r 's/.+HWaddr //' | head -n 1 | tr -d '\n'
 	# Output the first ethernet NIC's IPv4 address.
 	printf ' '
 	$prog -a | grep -A 1 '^e' | grep inet | sed -r 's/.+inet addr://' |

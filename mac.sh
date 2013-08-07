@@ -13,7 +13,7 @@ if [ $? == 0 ]; then
 	$prog -a | grep '^e' | sed -r 's/.+HWaddr//' | head -n 1 | tr -d '\n'
 	# Output the first ethernet NIC's IPv4 address.
 	printf ' '
-	$prog -a | grep -A 1 '^e' | grep inet | sed -r 's/.+inet addr:/ /' |
+	$prog -a | grep -A 1 '^e' | grep inet | sed -r 's/.+inet addr://' |
 		sed -r 's/  Bcast.+//' | head -n 1 | tr -d '\n'
 	# Output the IPv6 scope.
 	printf ' '

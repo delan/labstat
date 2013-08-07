@@ -14,7 +14,9 @@ if [ $? == 0 ]; then
 	# Output the first ethernet NIC's IPv4 address.
 	printf ' '
 	$prog -a | grep -A 1 '^e' | grep inet | sed -r 's/.+inet addr:/ /' |
-		sed -r 's/  Bcast.+//' | head -n 1
-else
-	echo
+		sed -r 's/  Bcast.+//' | head -n 1 | tr -d '\n'
+	# Output the current date and time in ISO 8601 format.
+	printf ' '
+	date -u +%FT%TZ
 fi
+echo

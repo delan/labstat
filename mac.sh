@@ -17,6 +17,6 @@ if [ $? == 0 ]; then
 		sed -r 's/  Bcast.+//' | head -n 1 | tr -d '\n'
 	# Output the current date and time in ISO 8601 format.
 	printf ' '
-	date -u +%FT%TZ
+	date -u +%FT%TZ | tr -d '\n'
 fi
 echo

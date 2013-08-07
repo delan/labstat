@@ -18,7 +18,7 @@ if [ $? == 0 ]; then
 	# Output the IPv6 scope.
 	printf ' '
 	$prog -a | grep -A 2 '^e' | grep inet6 |
-		sed -r 's/Scope://' | tr -d '\n'
+		sed -r 's/.+Scope://' | tr -d '\n'
 	# Output the current date and time in ISO 8601 format.
 	printf ' '
 	date -u +%FT%TZ | tr -d '\n'

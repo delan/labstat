@@ -1,19 +1,19 @@
 Labstat
 =======
 
-Tools for getting information about the Curtin network.
+Tools for getting information about computers on the Curtin network.
 
 mac.sh
 ------
 
 Usage: `./mac.sh`
 
-Use this tool to get the hostname, MAC address, IPv4 address, IPv6 scope of the
-local computer. An ISO 8601 (lexically sortable!) timestamp is included as the
-second field, so you can keep track of just how stale your information is.
+Use this tool to get the hostname, MAC address, IPv4 address and IPv6 scope of
+the local computer. An ISO 8601 (lexically sortable!) timestamp is included as
+the second field, so you can keep track of just how stale your information is.
 
-Note: hostname and timestamp MUST be the respective first two fields. Changing
-this will break cleanup.sh.
+Note that hostname and timestamp must remain the respective first two fields.
+Changing this will require updating cleanup.sh to reflect any such changes.
 
 remote.sh
 ---------
@@ -41,12 +41,12 @@ cleanup.sh
 
 Usage: `./cleanup.sh [file-name]`
 
-Use this tool to cleanup a dump from the other tools. This tool takes in a file,
+Use this tool to clean a dump from the other tools. This tool takes in a file,
 and does a number of things:
 
 * Sorts the output by hostname ascending, then by timestamp descending
 * Prunes all entries for a particular hostname except the most recent
 
 If you redirect the output to a file, don't use the same file name as the input
-because obviously reading from and writing to the same file simultaneously is a
+because reading from and writing to the same file simultaneously is obviously a
 bad idea™.

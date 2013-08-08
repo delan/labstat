@@ -1,0 +1,33 @@
+# You may need to run the following once interactively for your user account:
+# Set-ExecutionPolicy Bypass -Scope CurrentUser
+
+$o = [System.Net.NetworkInformation.IPGlobalProperties]::GetIPGlobalProperties()
+$H = '{0}.{1}' -f $o.HostName, $o.DomainName
+
+$o = Get-Date
+$D = "{0:yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'}" -f $o.ToUniversalTime()
+
+$o = Get-WmiObject -Class 'Win32_NetworkAdapterConfiguration' `
+	-Filter 'IpEnabled = TRUE'
+$M = $o.MACAddress
+
+$A = '0.0.0.0'
+$S = 'Link'
+
+Foreach ($addr in $o.IPAddress) {
+	# Is the address IPv4?
+	If ($addr -match '\.') {
+		$A = $addr
+	}
+	# Is the address IPv6?
+	If ($addr -match ':') {
+		# Is the address outside fe80::/16?
+		If (-not ($addr -match '^fe80')) {
+			$S = 'Global'
+		}
+	}
+}
+
+$out = "| {0} | {1} | {2} | {3} | {4} |" -f $H, $D, $M, $A, $S
+
+Add-Content -Path 'mac.ps1.out.txt' -Value $out

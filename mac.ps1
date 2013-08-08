@@ -45,3 +45,13 @@ Foreach ($addr in $o.IPAddress) {
 $out = "| {0} | {1} | {2} | {3} | {4} |" -f $H, $D, $M, $A, $S
 
 Add-Content -Path 'mac.ps1.out.txt' -Value $out
+
+# Eject the drive.
+
+$drive = $pwd.Drive.Name + ':\'
+$sa = New-Object -comObject Shell.Application
+$sa.Namespace($drive).Self.InvokeVerb("eject")
+
+# Finally, log out.
+
+Logoff

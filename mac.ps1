@@ -8,7 +8,7 @@ $o = Get-Date
 $D = "{0:yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'}" -f $o.ToUniversalTime()
 
 $o = Get-WmiObject -Class 'Win32_NetworkAdapterConfiguration' `
-	-Filter 'IpEnabled = TRUE'
+	-Filter 'DHCPEnabled = TRUE'
 $m = $o.MACAddress
 $a = $o.IPAddress
 

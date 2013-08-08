@@ -9,8 +9,22 @@ $D = "{0:yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'}" -f $o.ToUniversalTime()
 
 $o = Get-WmiObject -Class 'Win32_NetworkAdapterConfiguration' `
 	-Filter 'IpEnabled = TRUE'
-$M = $o.MACAddress
+$m = $o.MACAddress
+$a = $o.IPAddress
 
+# Similarly to how $o is only an array if there are multiple NICs, $o.MACAddress
+# and $o.IPAddress are arrays only if there are multiple MAC or IP addresses,
+# respectively. If they aren't, we'll normalise this by boxing them.
+
+If ($m.GetType().Name -eq 'String') {
+	$m = @($m)
+}
+
+If ($a.GetType().Name -eq 'String') {
+	$a = @($a)
+}
+
+$M = $m[0]
 $A = '0.0.0.0'
 $S = 'Link'
 

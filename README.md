@@ -15,6 +15,14 @@ the second field, so you can keep track of just how stale your information is.
 Note that hostname and timestamp must remain the respective first two fields.
 Changing this will require updating cleanup.sh to reflect any such changes.
 
+mac.ps1
+-------
+
+Usage: `.\mac.ps1`
+
+The Windows counterpart to `mac.sh` which writes to `mac.ps1.out.txt` in the
+same directory, then ejects the containing drive of the script, then logs out.
+
 remote.sh
 ---------
 

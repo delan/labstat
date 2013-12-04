@@ -44,7 +44,13 @@ Foreach ($addr in $o.IPAddress) {
 	}
 }
 
-$out = "| {0} | {1} | {2} | {3} | {4} |" -f $H, $D, $M, $A, $S
+$o = Get-WmiObject -Class Win32_NetworkAdapter | Where-Object { `
+	$_.AdapterType -match 'Ethernet' -and `
+	-not ($_.Name -match 'VMware') -and `
+	-not ($_.Name -match 'VirtualBox') }
+$L = $o.Speed / 1000000
+
+$out = "| {0} | {1} | {2} | {3} | {4} | {5} |" -f $H, $D, $M, $A, $S, $L
 
 Add-Content -Path 'mac.ps1.out.txt' -Value $out
 
